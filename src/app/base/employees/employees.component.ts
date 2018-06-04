@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeesComponent implements OnInit {
   employees = <any>{};
+  searchText = "";
   constructor() { }
 
   ngOnInit() {

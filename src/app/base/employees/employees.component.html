@@ -1,6 +1,7 @@
 <div class="emp-container">
   <h1>Employee Management</h1>
-
+  <input [(ngModel)]="searchText" placeholder="search text goes here">
+  <div class="spacer"></div>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -14,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let emp of employees.data" >
+      <tr *ngFor="let emp of employees.data  | filter : searchText" >
           <td>{{emp.id}}</td>
           <td>{{emp.name}}</td>
           <td>{{validateNumber(emp.phone)}}</td>
@@ -23,6 +24,7 @@
           <td>{{emp.address.address_line2}}</td>
           <td>{{emp.address.postal_code}}</td>
       </tr>
+      <tr class="no-data" *ngIf="employees.data.length == 0">No data found</tr>
     </tbody>
   </table>
 </div>
