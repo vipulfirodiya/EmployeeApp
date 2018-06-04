@@ -1,0 +1,28 @@
+<div class="emp-container">
+  <h1>Employee Management</h1>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>City</th>
+        <th>Address 1</th>
+        <th>Address 2</th>
+        <th>Posatl Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees.data" >
+          <td>{{emp.id}}</td>
+          <td>{{emp.name}}</td>
+          <td>{{validateNumber(emp.phone)}}</td>
+          <td>{{emp.address.city}}</td>
+          <td>{{emp.address.address_line1}}</td>
+          <td>{{emp.address.address_line2}}</td>
+          <td>{{emp.address.postal_code}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
