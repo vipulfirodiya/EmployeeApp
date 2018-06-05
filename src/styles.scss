@@ -1,2 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
+.has-danger .form-control {
+    border-color: #d9534f;
+    color: #d9534f;
+}
+
+.has-success .form-control {
+    border-color: #5cb85c;
+}
+
+.form-control-feedback{
+    color: #d9534f;
+}
+
+input{
+    outline:none !important;
+}

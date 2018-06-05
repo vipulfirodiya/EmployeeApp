@@ -1,30 +1,39 @@
 <div class="emp-container">
-  <h1>Employee Management</h1>
-  <input [(ngModel)]="searchText" placeholder="search text goes here">
+  <div *ngIf="showBaseRoute()">
+    <h1>Employee Management</h1>
+    <input [(ngModel)]="searchText" placeholder="search text goes here">
+    <button type="button" class="btn btn-primary" (click)="addNew()">Add New</button>
+    <div class="spacer"></div>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Address 1</th>
+          <th>Address 2</th>
+          <th>Posatl Code</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees.data  | filter : searchText" >
+            <td>{{emp.id}}</td>
+            <td>{{emp.name}}</td>
+            <td>{{validateNumber(emp.phone)}}</td>
+            <td>{{emp.address.city}}</td>
+            <td>{{emp.address.address_line1}}</td>
+            <td>{{emp.address.address_line2}}</td>
+            <td>{{emp.address.postal_code}}</td>
+            <td><button type="button" class="btn btn-primary" (click)="editEmp(emp)">Edit</button></td>
+        </tr>
+        <tr class="no-data" *ngIf="employees.data.length == 0">No data found</tr>
+      </tbody>
+    </table>
+  </div>
   <div class="spacer"></div>
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>City</th>
-        <th>Address 1</th>
-        <th>Address 2</th>
-        <th>Posatl Code</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let emp of employees.data  | filter : searchText" >
-          <td>{{emp.id}}</td>
-          <td>{{emp.name}}</td>
-          <td>{{validateNumber(emp.phone)}}</td>
-          <td>{{emp.address.city}}</td>
-          <td>{{emp.address.address_line1}}</td>
-          <td>{{emp.address.address_line2}}</td>
-          <td>{{emp.address.postal_code}}</td>
-      </tr>
-      <tr class="no-data" *ngIf="employees.data.length == 0">No data found</tr>
-    </tbody>
-  </table>
+  <app-add *ngIf="showRoute('add')"></app-add>
+  <div class="spacer"></div>
+  <app-edit *ngIf="showRoute('edit')"></app-edit>
 </div>

@@ -7,6 +7,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './/app-routing.module';
 import { BaseModule } from './base/base.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataSharingService } from './shared/datasharing.service';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    DataSharingService
   ],
   bootstrap: [AppComponent]
 })

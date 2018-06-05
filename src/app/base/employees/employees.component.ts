@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataSharingService } from '../../shared/datasharing.service';
 
 @Component({
   selector: 'app-employees',
@@ -8,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class EmployeesComponent implements OnInit {
   employees = <any>{};
   searchText = "";
-  constructor() { }
+  constructor(private router :Router, private sharingService: DataSharingService){}
 
   ngOnInit() {
     this.employees = {"data": [{
@@ -45,9 +47,46 @@ export class EmployeesComponent implements OnInit {
       "postal_code":"12455"
       }
       }]
+    };
+    this.sharingService.newEmployeeEmitter.subscribe(
+      data => {
+        if(data.id){
+          this.employees.data.splice(data.id-1, 1);
+          this.employees.data.splice(data.id-1, 0, data);
+        }else{
+          data.id = Math.max.apply(Math, this.employees.data.map(function(o){return o.id;}))+1;
+          this.employees.data.push(data);
+        }
       }
+    )
   }
 
+  addNew(){
+    this.router.navigate(['/employees/add']);
+  }
+
+  editEmp(employee){
+    this.router.navigate(['/employees/'+employee.id+'/edit']);
+    this.sharingService.setCurrentEmployee(employee);
+  }
+
+  showRoute(route){
+    var currentUrl = window.location.href
+    if(currentUrl.indexOf(route) > 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  showBaseRoute(){
+    var currentUrl = window.location.href
+    if(currentUrl.indexOf('add') > 0 || currentUrl.indexOf('edit') > 0){
+      return false;
+    }else{
+      return true;
+    }
+  }
   validateNumber(number){
     var Exp = /((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i;
 
